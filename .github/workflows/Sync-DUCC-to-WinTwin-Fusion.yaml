@@ -346,7 +346,7 @@ jobs:
         id: changes
         working-directory: framework
         run: |
-          git add "${TARGET_PATH}"
+          git add "${TARGET_PATH}" -f
 
           if git diff --cached --quiet; then
             echo "No changes detected after synchronisation."

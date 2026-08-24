@@ -1,1 +1,1 @@
-chore(sync): synchronize ${COMPONENT_NAME} from ${SOURCE_COMMIT_SHORT}
+Auto-Sync: PR ${COMPONENT_NAME} from ${SOURCE_COMMIT_SHORT} to WinTwin.Fusion

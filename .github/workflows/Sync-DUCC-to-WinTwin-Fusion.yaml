@@ -24,7 +24,7 @@ name: Sync DISM.UI.CC to WinTwin.Fusion
 #   - ducc.wm.changelog.md
 #
 # Zusätzlich:
-#   - erzeugt .wintwin-sync.json im Zielordner
+#   - erzeugt .ducc-sync.json im Zielordner
 #   - erzeugt dynamischen Commit-Body aus Template
 #   - listet tatsächlich geänderte Dateien im Commit-Body auf
 #   - pusht nach DUCC-Component-Update
@@ -181,8 +181,8 @@ jobs:
 
       - name: Configure Git identity
         run: |
-          git config --global user.name "WinTwin Fusion Sync Bot"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "WinTwin Fusion Framework Bot"
+          git config --global user.email "wintwin.fusion.framework@actions.github.com"
 
       # -----------------------------------------------------------------------
       # 5. Zielbranch vorbereiten
@@ -262,14 +262,14 @@ jobs:
       # 8. Sync-Metadaten-Datei erzeugen
       #
       # Datei:
-      #   ./framework/DISM.UI.CC/.wintwin-sync.json
+      #   ./framework/DISM.UI.CC/.ducc-sync.json
       #
       # Bedeutung:
       #   Diese Datei landet nach Commit und Push im Zielrepository unter:
       #
       #   WinTwin-Fusion/WinTwin.Fusion
       #   └── DISM.UI.CC
-      #       └── .wintwin-sync.json
+      #       └── .ducc-sync.json
       #
       # Der Ordner framework/DISM.UI.CC existiert zu diesem Zeitpunkt garantiert,
       # weil er in Schritt 6 per mkdir -p erstellt wurde.
@@ -320,7 +320,7 @@ jobs:
               "syncDate": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
           }
 
-          metadata_file = target_path / ".wintwin-sync.json"
+          metadata_file = target_path / ".ducc-sync.json"
           metadata_file.write_text(
               json.dumps(metadata, indent=2, ensure_ascii=False) + "\n",
               encoding="utf-8"

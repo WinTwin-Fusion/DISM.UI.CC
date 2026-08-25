@@ -73,7 +73,7 @@ try {
     $script:rootcfg = Get-Content -LiteralPath $script:app['configRoot'] -Raw | ConvertFrom-Json -ErrorAction Stop
 }
 catch {
-    Write-Error "ducc.wim.mounter: Failed to parse following file:`n$($script:app['configRoot'])`n$($_.Exception.Message)"
+    Write-Error "ducc.wim.mounter: Failed to parse $($script:app['configRoot'])\n$($_.Exception.Message)"
     exit 1
 }
 

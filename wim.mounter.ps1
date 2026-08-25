@@ -74,7 +74,7 @@ try {
     $script:rootcfg = Get-Content -LiteralPath $script:app['configRoot'] -Raw | ConvertFrom-Json -ErrorAction Stop
 }
 catch {
-    Write-Error "ducc.wim.mounter: Failed to parse $script:app['configRoot']\n$($_.Exception.Message)"
+    Write-Error "ducc.wim.mounter: Failed to parse "+$script:app['configRoot']+"\n$($_.Exception.Message)"
     exit 1
 }
 
@@ -170,7 +170,7 @@ $script:app['wimIndex'] = [int]$script:jobconf."wim-mount".index
 #--------------------------------------------------------------------------------
 # Try to load the wim-mounter-internal function library
 #--------------------------------------------------------------------------------
-if (-not (Test-Path -LiteralPath [string]$script:app['fxpath'])) {
+if (-not (Test-Path -LiteralPath $script:app['fxpath'])) {
     Write-Error "ducc.wim.mounter: Function library directory not found:\n"+$script:app['fxpath']
     exit 1
 }
@@ -179,7 +179,7 @@ try {
     . $script:app['fxpath']
 }
 catch {
-    Write-Error "ducc.wim.mounter: Failed to dot-source $script:app['fxpath']\n$($_.Exception.Message)"
+    Write-Error "ducc.wim.mounter: Failed to dot-source "+$script:app['fxpath']+"\n$($_.Exception.Message)"
     exit 1
 }
 
@@ -360,7 +360,7 @@ $btnMount.Add_Click({
 
     if (-not (Test-Path -LiteralPath $WinTwin['console'] -PathType Leaf)) {
         [System.Windows.MessageBox]::Show(
-            "WTF.Console.ps1 was not found:`n$WinTwin['console']",
+            "WTF.Console.ps1 was not found:\n"+$WinTwin['console'],
             'DISM.UI.CC - wim.mounter',
             [System.Windows.MessageBoxButton]::OK,
             [System.Windows.MessageBoxImage]::Error

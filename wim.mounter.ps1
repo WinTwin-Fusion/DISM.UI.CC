@@ -43,13 +43,13 @@ $script:app = @{
     configRoot = "..\core\config.json"
     jobaxnConf = "..\core\db\jobaction.json"
     configTool = Join-Path $global:approot "config.json"
-    fxfile     = ""
-    fxpath     = ""
-    xuifile    = ""
-    xuipath    = ""
-    wimIndex   = ""
-    lngfile    = ""
-    lngpath    = ""
+#    fxfile     = ""
+#    fxpath     = ""
+#    xuifile    = ""
+#    xuipath    = ""
+#    wimIndex   = ""
+#    lngfile    = ""
+#    lngpath    = ""
 }
 
 
@@ -94,6 +94,8 @@ if ([string]::IsNullOrWhiteSpace($Language)) {
     $Language = $script:rootcfg.appconfig.defaultlanguage
 }
 
+Write-Host "DEBUGGING INFORMATION:\n» "+$WinTwin['console']
+
 #--------------------------------------------------------------------------------
 # Try to load required Libraries from the WinTwin.Fusion Framework
 #--------------------------------------------------------------------------------
@@ -129,6 +131,8 @@ wtfxSetCMDstate -State Hide
 #--------------------------------------------------------------------------------
 # Time to load the other JSON Config files (using Functions from WinTwin.FXcore)
 #--------------------------------------------------------------------------------
+
+Write-Host "DEBUGGING INFORMATION:\n» "+$script:app['jobaxnConf']
 
 $result = wtfxLoadJSON -Path $script:app['jobaxnConf']
 if ($result.code -eq 0) { $script:jobconf = $result.data }
@@ -166,8 +170,8 @@ $script:app['wimIndex'] = [int]$script:jobconf."wim-mount".index
 #--------------------------------------------------------------------------------
 # Try to load the wim-mounter-internal function library
 #--------------------------------------------------------------------------------
-if (-not (Test-Path -LiteralPath $script:app['fxpath'])) {
-    Write-Error "ducc.wim.mounter: Function library directory not found:\n$script:app['fxpath']"
+if (-not (Test-Path -LiteralPath [string]$script:app['fxpath'])) {
+    Write-Error "ducc.wim.mounter: Function library directory not found:\n"+$script:app['fxpath']
     exit 1
 }
 
